@@ -47,11 +47,11 @@ export class Crosshair {
       originX: 'center',
       originY: 'center',
       left: 0,
-      top: getNum(image.width) + 5,
+      top: getNum(image.width) - 10,
       fontSize: Math.floor(getNum(image.width) * 0.5),
     });
 
-    const group = new fabric.Group([image, text], {
+    const group = new fabric.Group([image], {
       left: props.box.left,
       top: props.box.top,
     });
