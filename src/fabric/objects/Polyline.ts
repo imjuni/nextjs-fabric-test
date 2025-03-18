@@ -17,6 +17,13 @@ export class Polyline {
       strokeWidth: 2,
       fill: 'transparent',
       perPixelTargetFind: true,
+      padding: 10,
+      lockMovementX: true,
+      lockMovementY: true,
+      lockScalingX: true,
+      lockScalingY: true,
+      lockSkewingX: true,
+      lockSkewingY: true,
     });
 
     return new Polyline({ polyline });

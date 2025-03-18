@@ -1,4 +1,5 @@
 import { CE_FABRIC_CANVAS_CONFIG } from '#/const-enum/CE_FABRIC_CANVAS_CONFIG';
+import { onHandleFabricMouseDown } from '#/fabric/events/mousedown';
 import { FabricBox } from '#/fabric/FabricBox';
 import { ImageBox } from '#/fabric/images/ImageBox';
 import { fabric } from 'fabric';
@@ -11,7 +12,10 @@ export async function createCanvas({ ref }: { ref: React.RefObject<HTMLCanvasEle
     width: CE_FABRIC_CANVAS_CONFIG.WIDTH,
     height: CE_FABRIC_CANVAS_CONFIG.HEIGHT,
     backgroundColor: CE_FABRIC_CANVAS_CONFIG.BACKGROUND_COLOR,
+    targetFindTolerance: 10,
   });
+
+  canvas.on('mouse:down', onHandleFabricMouseDown);
 
   FabricBox.create(canvas);
 }
