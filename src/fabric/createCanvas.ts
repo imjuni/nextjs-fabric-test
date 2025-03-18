@@ -11,6 +11,10 @@ export function createCanvas({ ref }: { ref: React.RefObject<HTMLCanvasElement> 
     height: CE_FABRIC_CANVAS_CONFIG.HEIGHT,
     backgroundColor: CE_FABRIC_CANVAS_CONFIG.BACKGROUND_COLOR,
     targetFindTolerance: 10,
+    // 선택 영역의 배경색을 투명하게 설정
+    // selectionColor: 'rgba(0, 0, 0, 0)',
+    // 선택 테두리 색을 투명하게 설정
+    // selectionBorderColor: 'transparent',
   });
 
   canvas.on('mouse:down', onHandleFabricMouseDown);

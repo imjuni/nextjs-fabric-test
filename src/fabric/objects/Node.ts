@@ -1,5 +1,6 @@
 import { ImageBox } from '#/fabric/images/ImageBox';
 import { IBox } from '#/fabric/interfaces/IBox';
+import { getLock } from '#/fabric/tools/getLock';
 import { getNum } from '#/fabric/tools/getNum';
 import Color from 'color';
 import { fabric } from 'fabric';
@@ -70,6 +71,7 @@ export class Node {
       height: props.box.height,
       originX: 'left',
       originY: 'top',
+      ...getLock(),
     });
 
     return new Node({ image, text, group, rect });

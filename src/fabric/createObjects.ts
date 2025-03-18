@@ -7,6 +7,24 @@ export async function createObjects() {
   const canvas = FabricBox.canvas;
 
   const nodes = [
+    await Polyline.create({
+      points: [
+        { x: 820, y: 145 },
+        { x: 860, y: 145 },
+        { x: 860, y: 225 },
+        { x: 250, y: 225 },
+        { x: 250, y: 345 },
+        { x: 300, y: 345 },
+      ],
+      color: '#E71D36',
+    }),
+    await Polyline.create({
+      points: [
+        { x: 330, y: 545 },
+        { x: 690, y: 545 },
+      ],
+      color: '#E71D36',
+    }),
     await Node.create({
       box: { left: 700, top: 100, width: 120, height: 80 },
       label: '1',
@@ -18,25 +36,38 @@ export async function createObjects() {
       color: '#8294C4',
     }),
     await Node.create({
-      box: { left: 400, top: 500, width: 120, height: 80 },
+      box: { left: 200, top: 500, width: 120, height: 80 },
       label: '3',
       color: '#8294C4',
     }),
+    await Node.create({
+      box: { left: 700, top: 500, width: 120, height: 80 },
+      label: '4',
+      color: '#8294C4',
+    }),
     await Port.create({
-      box: { left: 400, top: 540, width: 18, height: 14 },
-      label: 'mi',
+      box: { left: 200, top: 540, width: 18, height: 14 },
+      label: 'end',
+      mode: 'right',
       color: '#2EC4B6',
     }),
-    await Polyline.create({
-      points: [
-        { x: 820, y: 145 },
-        { x: 860, y: 145 },
-        { x: 860, y: 225 },
-        { x: 250, y: 225 },
-        { x: 250, y: 345 },
-        { x: 300, y: 345 },
-      ],
-      color: '#E71D36',
+    await Port.create({
+      box: { left: 320, top: 540, width: 18, height: 14 },
+      label: 'start',
+      mode: 'left',
+      color: '#2EC4B6',
+    }),
+    await Port.create({
+      box: { left: 700, top: 540, width: 18, height: 14 },
+      label: 'end',
+      mode: 'right',
+      color: '#2EC4B6',
+    }),
+    await Port.create({
+      box: { left: 820, top: 540, width: 18, height: 14 },
+      label: 'start',
+      mode: 'left',
+      color: '#2EC4B6',
     }),
   ];
 

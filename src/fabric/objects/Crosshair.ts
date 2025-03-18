@@ -1,5 +1,6 @@
 import { ImageBox } from '#/fabric/images/ImageBox';
 import { IBox } from '#/fabric/interfaces/IBox';
+import { getLock } from '#/fabric/tools/getLock';
 import { getNum } from '#/fabric/tools/getNum';
 import { fabric } from 'fabric';
 
@@ -54,6 +55,8 @@ export class Crosshair {
     const group = new fabric.Group([image], {
       left: props.box.left,
       top: props.box.top,
+      ...getLock(),
+      selectable: false,
     });
 
     return new Crosshair({ image, text, group });

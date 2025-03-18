@@ -1,4 +1,5 @@
 import { IBox } from '#/fabric/interfaces/IBox';
+import { getLock } from '#/fabric/tools/getLock';
 import Color from 'color';
 import { fabric } from 'fabric';
 
@@ -6,6 +7,7 @@ export interface IPortCreateProps {
   box: IBox;
   label: string;
   color: string;
+  mode: 'right' | 'left';
 }
 
 export interface IPortProps {
@@ -16,10 +18,13 @@ export interface IPortProps {
 
 export class Port {
   static async create(props: IPortCreateProps) {
+    const textAdjustX = 5;
+
     const text = new fabric.Text(props.label, {
-      originX: 'right',
+      originX: props.mode,
       originY: 'center',
-      left: -15,
+      left:
+        props.mode === 'right' ? props.box.width * -1 + textAdjustX : props.box.width - textAdjustX,
       top: 0,
       fontSize: 14,
       fontFamily: 'roboto',
@@ -41,8 +46,9 @@ export class Port {
       top: props.box.top,
       width: props.box.width,
       height: props.box.height,
-      originX: 'right',
+      originX: props.mode,
       originY: 'top',
+      ...getLock(),
     });
 
     group.add(rect);

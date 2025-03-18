@@ -1,3 +1,4 @@
+import { getLock } from '#/fabric/tools/getLock';
 import { fabric } from 'fabric';
 import type { IPoint } from 'fabric/fabric-impl';
 
@@ -8,6 +9,7 @@ export interface IPolylineCreateProps {
 
 export interface IPolylineProps {
   polyline: fabric.Polyline;
+  color: string;
 }
 
 export class Polyline {
@@ -18,16 +20,16 @@ export class Polyline {
       fill: 'transparent',
       perPixelTargetFind: true,
       padding: 10,
-      lockMovementX: true,
-      lockMovementY: true,
-      lockScalingX: true,
-      lockScalingY: true,
-      lockSkewingX: true,
-      lockSkewingY: true,
+      ...getLock(),
+      hasControls: false,
+      hasBorders: false,
+      selectable: true,
     });
 
-    return new Polyline({ polyline });
+    return new Polyline({ polyline, color: props.color });
   }
+
+  #color: string;
 
   #polyline: fabric.Polyline;
 
@@ -35,7 +37,31 @@ export class Polyline {
     return this.#polyline;
   }
 
+  get color() {
+    return this.#color;
+  }
+
   constructor(props: IPolylineProps) {
     this.#polyline = props.polyline;
+    this.#color = props.color;
+
+    this.#polyline.on('selected', this.onHandleSelected.bind(this));
+    this.#polyline.on('deselected', this.onHandleDeselected.bind(this));
+  }
+
+  onHandleSelected() {
+    this.#polyline.setOptions({
+      stroke: '#8294C4',
+    });
+
+    this.#polyline.canvas?.requestRenderAll();
+  }
+
+  onHandleDeselected() {
+    this.#polyline.setOptions({
+      stroke: this.#color,
+    });
+
+    this.#polyline.canvas?.requestRenderAll();
   }
 }
