@@ -11,9 +11,14 @@ const styledCanvas = css({
 
 export default function CanvasBody() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const initializeRef = useRef<boolean>(false);
 
   useEffect(() => {
-    if (canvasRef.current != null) {
+    const ref = canvasRef.current;
+    const isInit = initializeRef.current;
+
+    if (ref != null && isInit != null && !isInit) {
+      initializeRef.current = true;
       createFabric({ ref: canvasRef as React.RefObject<HTMLCanvasElement> });
     }
   }, []);

@@ -14,6 +14,7 @@ export interface INodeProps {
   image: fabric.Image;
   group: fabric.Group;
   text: fabric.Text;
+  rect: fabric.Rect;
 }
 
 export class Node {
@@ -36,7 +37,7 @@ export class Node {
           width: props.box.width,
           height: props.box.height,
           fill: props.color,
-          stroke: Color(props.color).mix(Color('black'), 0.2),
+          stroke: Color(props.color).mix(Color('black'), 0.2).toString(),
           strokeWidth: 3,
         });
 
@@ -51,19 +52,36 @@ export class Node {
       top: 0,
     });
 
-    const group = new fabric.Group([image, text], {
-      left: props.box.left,
-      top: props.box.top,
+    const rect = new fabric.Rect({
+      left: 0,
+      top: 0,
+      originX: 'center',
+      originY: 'center',
+      width: props.box.width,
+      height: props.box.height,
+      // fill: 'transparent',
+      fill: Color(props.color).mix(Color('white'), 0.5).toString(),
     });
 
-    return new Node({ image, text, group });
+    const group = new fabric.Group([rect, image, text], {
+      left: props.box.left,
+      top: props.box.top,
+      width: props.box.width,
+      height: props.box.height,
+      originX: 'left',
+      originY: 'top',
+    });
+
+    return new Node({ image, text, group, rect });
   }
 
-  #image: fabric.Image;
+  #image: INodeProps['image'];
 
-  #group: fabric.Group;
+  #group: INodeProps['group'];
 
-  #text: fabric.Text;
+  #text: INodeProps['text'];
+
+  #rect: INodeProps['rect'];
 
   get object() {
     return this.#group;
@@ -73,5 +91,6 @@ export class Node {
     this.#image = props.image;
     this.#group = props.group;
     this.#text = props.text;
+    this.#rect = props.rect;
   }
 }

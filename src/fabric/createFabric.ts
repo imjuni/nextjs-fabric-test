@@ -5,7 +5,8 @@ import { FabricPlainState } from '#/fabric/states/fabric-plain-state';
 
 export async function createFabric({ ref }: { ref: React.RefObject<HTMLCanvasElement> }) {
   FabricPlainState.create();
+  createCanvas({ ref });
+
   await ImageBox.create();
-  await createCanvas({ ref });
   await createObjects();
 }

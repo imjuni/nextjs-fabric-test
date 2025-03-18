@@ -11,6 +11,8 @@ export class FabricPlainState {
 
   #isShowClickPos: boolean;
 
+  #isWheelZoom: boolean;
+
   get isShowClickPos() {
     return this.#isShowClickPos;
   }
@@ -19,7 +21,16 @@ export class FabricPlainState {
     this.#isShowClickPos = value;
   }
 
+  get isWheelZoom() {
+    return this.#isWheelZoom;
+  }
+
+  set isWheelZoom(value) {
+    this.#isWheelZoom = value;
+  }
+
   constructor() {
     this.#isShowClickPos = false;
+    this.#isWheelZoom = true;
   }
 }

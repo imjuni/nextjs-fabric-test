@@ -7,8 +7,8 @@
     "pnpm": ">=8.15.4"
   },
   "scripts": {
-    "33panda-gen": "panda codegen",
-    "33prepare": "pnpm run panda-gen",
+    "panda-gen": "panda codegen",
+    "prepare": "pnpm run panda-gen",
     "dev": "next dev -p 4000",
     "build": "next build",
     "start": "next start",

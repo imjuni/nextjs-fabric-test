@@ -1,10 +1,16 @@
-import type { fabric } from 'fabric';
+import { fabric } from 'fabric';
 
 export class FabricBox {
   static box?: FabricBox;
 
   static create(canvas: fabric.Canvas): undefined {
     FabricBox.box = new FabricBox(canvas);
+  }
+
+  static dispose(): undefined {
+    if (FabricBox.box != null) {
+      FabricBox.box.#canvas.dispose();
+    }
   }
 
   static get canvas(): fabric.Canvas {
