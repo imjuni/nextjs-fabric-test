@@ -1,0 +1,8 @@
+export const CE_FABRIC_CANVAS_CONFIG = {
+  WIDTH: 1280,
+  HEIGHT: 800,
+  BACKGROUND_COLOR: '#F9F9F9',
+} as const;
+
+export type CE_FABRIC_CANVAS_CONFIG =
+  (typeof CE_FABRIC_CANVAS_CONFIG)[keyof typeof CE_FABRIC_CANVAS_CONFIG];
