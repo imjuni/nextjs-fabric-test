@@ -4,7 +4,10 @@ import type { IPoint } from 'fabric/fabric-impl';
 
 export interface IPolylineCreateProps {
   points: IPoint[];
-  color: string;
+  canvas?: {
+    stroke?: string;
+    strokeWidth?: number;
+  };
 }
 
 export interface IPolylineProps {
@@ -14,9 +17,14 @@ export interface IPolylineProps {
 
 export class Polyline {
   static async create(props: IPolylineCreateProps) {
+    const color = props.canvas?.stroke ?? '#ff0000';
+    const strokeWidth = props.canvas?.strokeWidth ?? 2;
+
+    console.log('Polyline: ', color, strokeWidth);
+
     const polyline = new fabric.Polyline(props.points, {
-      stroke: props.color,
-      strokeWidth: 2,
+      stroke: color,
+      strokeWidth,
       fill: 'transparent',
       perPixelTargetFind: true,
       padding: 10,
@@ -26,7 +34,7 @@ export class Polyline {
       selectable: true,
     });
 
-    return new Polyline({ polyline, color: props.color });
+    return new Polyline({ polyline, color: color });
   }
 
   #color: string;

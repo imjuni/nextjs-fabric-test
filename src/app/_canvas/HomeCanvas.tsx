@@ -28,7 +28,7 @@ export default function HomeCanvas() {
     <Suspense>
       <section className={cx('section-box', div())}>
         <div className={cx('canvas-box', div())}>
-          <HomeCanvasDynamic />
+          <HomeCanvasDynamic type="per-pixel-find-target" />
         </div>
         <div className={cx('option-box', div(), styledOptionBox)}>
           <p onClick={() => toggle()}>

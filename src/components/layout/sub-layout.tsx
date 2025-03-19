@@ -1,5 +1,6 @@
 import { css, cx } from '#/styled-system/css';
 import { div } from '#/styled-system/recipes';
+import Link from 'next/link';
 import { Fragment } from 'react';
 
 const styledNav = css({
@@ -25,7 +26,9 @@ export default function SubLayout({ children }: Readonly<{ children: React.React
     <Fragment>
       <nav className={styledNav}>
         <div className={cx(div(), 'nav-div-box')}>
-          <p>fabric.js 테스트</p>
+          <p>
+            <Link href="/">fabric.js 테스트</Link>
+          </p>
         </div>
       </nav>
       <main className={styledMain}>{children}</main>

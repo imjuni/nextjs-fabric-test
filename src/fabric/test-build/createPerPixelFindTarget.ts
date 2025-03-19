@@ -3,7 +3,7 @@ import { Node } from '#/fabric/objects/Node';
 import { Polyline } from '#/fabric/objects/Polyline';
 import { Port } from '#/fabric/objects/Port';
 
-export async function createObjects() {
+export async function createPerPixelFindTarget() {
   const canvas = FabricBox.canvas;
 
   const nodes = [
@@ -16,14 +16,20 @@ export async function createObjects() {
         { x: 250, y: 345 },
         { x: 300, y: 345 },
       ],
-      color: '#E71D36',
+      canvas: {
+        stroke: '#E71D36',
+        strokeWidth: 2,
+      },
     }),
     await Polyline.create({
       points: [
         { x: 330, y: 545 },
         { x: 690, y: 545 },
       ],
-      color: '#E71D36',
+      canvas: {
+        stroke: '#E71D36',
+        strokeWidth: 2,
+      },
     }),
     await Node.create({
       box: { left: 700, top: 100, width: 120, height: 80 },

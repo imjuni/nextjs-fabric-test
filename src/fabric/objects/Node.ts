@@ -4,11 +4,20 @@ import { getLock } from '#/fabric/tools/getLock';
 import { getNum } from '#/fabric/tools/getNum';
 import Color from 'color';
 import { fabric } from 'fabric';
+import { IObjectOptions } from 'fabric/fabric-impl';
 
 export interface INodeCreateProps {
   box: IBox;
   label: string;
   color: string;
+  canvas?: {
+    originX?: IObjectOptions['originX'];
+    originY?: IObjectOptions['originY'];
+    stroke?: string;
+    strokeWidth?: number;
+    fontFamily?: string;
+    fontSize?: number;
+  };
 }
 
 export interface INodeProps {
@@ -51,6 +60,8 @@ export class Node {
       originY: 'center',
       left: 0,
       top: 0,
+      fontFamily: props.canvas?.fontFamily ?? 'roboto',
+      fontSize: props.canvas?.fontSize ?? 20,
     });
 
     const rect = new fabric.Rect({
@@ -62,6 +73,8 @@ export class Node {
       height: props.box.height,
       // fill: 'transparent',
       fill: Color(props.color).mix(Color('white'), 0.5).toString(),
+      stroke: props.canvas?.stroke,
+      strokeWidth: props.canvas?.strokeWidth,
     });
 
     const group = new fabric.Group([rect, image, text], {
@@ -69,8 +82,8 @@ export class Node {
       top: props.box.top,
       width: props.box.width,
       height: props.box.height,
-      originX: 'left',
-      originY: 'top',
+      originX: props.canvas?.originX ?? 'left',
+      originY: props.canvas?.originY ?? 'top',
       ...getLock(),
     });
 

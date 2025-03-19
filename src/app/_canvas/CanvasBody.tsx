@@ -1,7 +1,9 @@
 'use client';
 
 import { CE_FABRIC_CANVAS_CONFIG } from '#/const-enum/CE_FABRIC_CANVAS_CONFIG';
-import { createFabric } from '#/fabric/createFabric';
+import { createCoord } from '#/fabric/test-build/createCoord';
+import { createPerPixelFindTarget } from '#/fabric/test-build/createPerPixelFindTarget';
+import { getInitializor } from '#/fabric/tools/getInitializor';
 import { css } from '#/styled-system/css';
 import { Suspense, useEffect, useRef } from 'react';
 
@@ -9,7 +11,18 @@ const styledCanvas = css({
   border: '0.2rem solid rgba(33,33,33,0.2)',
 });
 
-export default function CanvasBody() {
+type TTestType = 'per-pixel-find-target' | 'object-coord';
+
+function createObjectByType(type: TTestType) {
+  switch (type) {
+    case 'object-coord':
+      return getInitializor(createCoord);
+    default:
+      return getInitializor(createPerPixelFindTarget);
+  }
+}
+
+export default function CanvasBody({ type }: { type: TTestType }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const initializeRef = useRef<boolean>(false);
 
@@ -19,9 +32,9 @@ export default function CanvasBody() {
 
     if (ref != null && isInit != null && !isInit) {
       initializeRef.current = true;
-      createFabric({ ref: canvasRef as React.RefObject<HTMLCanvasElement> });
+      createObjectByType(type)({ ref: canvasRef as React.RefObject<HTMLCanvasElement> });
     }
-  }, []);
+  }, [type]);
 
   return (
     <Suspense>
