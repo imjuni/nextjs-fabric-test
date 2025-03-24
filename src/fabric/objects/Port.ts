@@ -19,12 +19,13 @@ export interface IPortProps {
 export class Port {
   static async create(props: IPortCreateProps) {
     const textAdjustX = 5;
-    const polygonWidth = 12;
-    const polygonHeight = 8;
+    const polygonWidth = 18;
+    const polygonHeight = 14;
+    const slopeSize = 4;
     const paddingWithPolygonBetweenText = 4;
     const polygonWithPadding = polygonWidth + paddingWithPolygonBetweenText;
 
-    const text = new fabric.Text(props.label, {
+    const text = new fabric.Textbox(props.label, {
       originX: props.mode,
       originY: 'center',
       left:
@@ -32,25 +33,36 @@ export class Port {
           ? polygonWithPadding * -1 + textAdjustX
           : polygonWithPadding - textAdjustX,
       top: 0,
-      fontSize: 14,
-      fontFamily: 'roboto',
+      fontSize: 12,
+      textAlign: props.mode === 'right' ? 'right' : 'left',
+      width: props.label.length * 10,
+      lineHeight: 1,
+      height: 14,
+      fontFamily: 'roboto mono',
     });
+
+    // 1줄로만 text를 입력할 경우 height를 설정해도 font-size를 사용해서 height를 자동으로 계산한다
+    // 그래서 height를 다시 설정하고, setCoords를 호출해야 한다
+    text.set({ height: 14 });
+    text.setCoords();
+
+    console.log('포트 글자 크기: ', text.width, text.height);
 
     const points =
       props.mode === 'left'
         ? [
             { x: 0, y: 0 },
-            { x: 8, y: 0 },
-            { x: 12, y: 6 },
-            { x: 8, y: 12 },
-            { x: 0, y: 12 },
+            { x: polygonWidth - slopeSize, y: 0 },
+            { x: polygonWidth, y: polygonHeight / 2 },
+            { x: polygonWidth - slopeSize, y: polygonHeight },
+            { x: 0, y: polygonHeight },
           ]
         : [
             { x: 0, y: 0 },
-            { x: 12, y: 0 },
-            { x: 12, y: 12 },
-            { x: 0, y: 12 },
-            { x: 4, y: 6 },
+            { x: polygonWidth, y: 0 },
+            { x: polygonWidth, y: polygonHeight },
+            { x: 0, y: polygonHeight },
+            { x: slopeSize, y: polygonHeight / 2 },
           ];
 
     const polygon = new fabric.Polygon(points, {
@@ -72,9 +84,6 @@ export class Port {
       originY: 'center',
       ...getLock(),
     });
-
-    group.add(polygon);
-    group.add(text);
 
     return new Port({ text, polygon: polygon, group });
   }

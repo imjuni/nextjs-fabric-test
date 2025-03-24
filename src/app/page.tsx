@@ -34,6 +34,9 @@ export default async function Home() {
               <li>
                 <Link href="/polyline-connection">object conection 테스트</Link>
               </li>
+              <li>
+                <Link href="/group-coord">group 객체 좌표 테스트</Link>
+              </li>
             </ul>
           </div>
         </section>

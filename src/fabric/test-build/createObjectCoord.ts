@@ -6,7 +6,7 @@ import { getLock } from '#/fabric/tools/getLock';
 import Color from 'color';
 import { fabric } from 'fabric';
 
-export async function createCoord() {
+export async function createObjectCoord() {
   const canvas = FabricBox.canvas;
 
   const nodes = [

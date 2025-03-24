@@ -5,12 +5,21 @@ import { FabricPlainState } from '#/fabric/states/fabric-plain-state';
 import { fabric } from 'fabric';
 
 export async function onHandleFabricMouseDown(event: fabric.IEvent<MouseEvent>) {
+  const pointer = FabricBox.canvas.getPointer(event.e, true);
+  FabricBox.box.lastCoord = pointer;
+  FabricBox.box.isMouseDown = true;
+
   if (FabricPlainState.it.isShowClickPos) {
     setTimeout(async () => {
-      const pointer = FabricBox.canvas.getPointer(event.e, true);
+      const absPointer = FabricBox.canvas.getPointer(event.e, true);
       const size = 30;
       const crosshair = await Crosshair.create({
-        box: { left: pointer.x - size / 2, top: pointer.y - size / 2, width: size, height: size },
+        box: {
+          left: absPointer.x - size / 2,
+          top: absPointer.y - size / 2,
+          width: size,
+          height: size,
+        },
         label: 'clicked',
         color: '#FF9F1C',
       });

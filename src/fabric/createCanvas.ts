@@ -1,5 +1,7 @@
 import { CE_FABRIC_CANVAS_CONFIG } from '#/const-enum/CE_FABRIC_CANVAS_CONFIG';
 import { onHandleFabricMouseDown } from '#/fabric/events/mousedown';
+import { onHandleFabricMouseMove } from '#/fabric/events/mousemove';
+import { onHandleFabricMouseUp } from '#/fabric/events/mouseup';
 import { onHandleFabricMouseWheel } from '#/fabric/events/mousewheel';
 import { FabricBox } from '#/fabric/FabricBox';
 import { fabric } from 'fabric';
@@ -18,6 +20,8 @@ export function createCanvas({ ref }: { ref: React.RefObject<HTMLCanvasElement> 
   });
 
   canvas.on('mouse:down', onHandleFabricMouseDown);
+  canvas.on('mouse:up', onHandleFabricMouseUp);
+  canvas.on('mouse:move', onHandleFabricMouseMove);
   canvas.on('mouse:wheel', onHandleFabricMouseWheel);
 
   FabricBox.create(canvas);

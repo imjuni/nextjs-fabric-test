@@ -1,6 +1,6 @@
 import { cx } from '#/styled-system/css';
 import type { Metadata } from 'next';
-import { Andika, Geist, Geist_Mono } from 'next/font/google';
+import { Andika, Geist, Geist_Mono, Roboto_Mono } from 'next/font/google';
 import './globals.css';
 
 const geistSans = Geist({
@@ -14,7 +14,13 @@ const geistMono = Geist_Mono({
 });
 
 const andika = Andika({
-  variable: '--font-ndika',
+  variable: '--font-andika',
+  weight: '400',
+  subsets: ['latin'],
+});
+
+const robotoMono = Roboto_Mono({
+  variable: '--font-roboto-mono',
   weight: '400',
   subsets: ['latin'],
 });
@@ -27,7 +33,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body className={cx(andika.variable, geistSans.variable, geistMono.variable)}>
+      <body
+        className={cx(andika.variable, robotoMono.variable, geistSans.variable, geistMono.variable)}
+      >
         {children}
       </body>
     </html>

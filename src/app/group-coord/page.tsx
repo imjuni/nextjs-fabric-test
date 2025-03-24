@@ -1,4 +1,4 @@
-import ObjectCoordCanvas from '#/app/_canvas/ObjectCoordCanvas';
+import GroupCoordCanvas from '#/app/_canvas/GroupCoordCanvas';
 import SubLayout from '#/components/layout/sub-layout';
 import { cx } from '#/styled-system/css';
 import { h1 } from '#/styled-system/recipes';
@@ -10,11 +10,11 @@ export default async function GroupObjectCoord() {
       <div className={cx('section-box', div())}>
         <section>
           <div className={cx('heading-box', div())}>
-            <h1 className={h1({ box: 'plain' })}>stroke 설정에 따른 object 크기 변경 테스트</h1>
+            <h1 className={h1({ box: 'plain' })}>Group에 포함된 객체 좌표 계산</h1>
           </div>
 
           <div className={cx('canvas-box', div())}>
-            <ObjectCoordCanvas />
+            <GroupCoordCanvas />
           </div>
         </section>
       </div>
