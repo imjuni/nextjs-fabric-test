@@ -4,14 +4,14 @@ import Color from 'color';
 import { fabric } from 'fabric';
 
 export interface IPortCreateProps {
-  box: IBox;
+  box: Omit<IBox, 'width' | 'height'>;
   label: string;
   color: string;
   mode: 'right' | 'left';
 }
 
 export interface IPortProps {
-  rect: fabric.Rect;
+  polygon: fabric.Polygon;
   group: fabric.Group;
   text: fabric.Text;
 }
@@ -19,45 +19,67 @@ export interface IPortProps {
 export class Port {
   static async create(props: IPortCreateProps) {
     const textAdjustX = 5;
+    const polygonWidth = 12;
+    const polygonHeight = 8;
+    const paddingWithPolygonBetweenText = 4;
+    const polygonWithPadding = polygonWidth + paddingWithPolygonBetweenText;
 
     const text = new fabric.Text(props.label, {
       originX: props.mode,
       originY: 'center',
       left:
-        props.mode === 'right' ? props.box.width * -1 + textAdjustX : props.box.width - textAdjustX,
+        props.mode === 'right'
+          ? polygonWithPadding * -1 + textAdjustX
+          : polygonWithPadding - textAdjustX,
       top: 0,
       fontSize: 14,
       fontFamily: 'roboto',
     });
 
-    const rect = new fabric.Rect({
+    const points =
+      props.mode === 'left'
+        ? [
+            { x: 0, y: 0 },
+            { x: 8, y: 0 },
+            { x: 12, y: 6 },
+            { x: 8, y: 12 },
+            { x: 0, y: 12 },
+          ]
+        : [
+            { x: 0, y: 0 },
+            { x: 12, y: 0 },
+            { x: 12, y: 12 },
+            { x: 0, y: 12 },
+            { x: 4, y: 6 },
+          ];
+
+    const polygon = new fabric.Polygon(points, {
       left: 0,
       top: 0,
       originX: 'center',
       originY: 'center',
-      width: props.box.width,
-      height: props.box.height,
-      // fill: 'transparent',
+      width: polygonWidth,
+      height: polygonHeight,
       fill: Color(props.color).mix(Color('white'), 0.5).toString(),
+      stroke: Color(props.color).mix(Color('black'), 0.2).toString(),
+      strokeWidth: 2,
     });
 
-    const group = new fabric.Group([], {
+    const group = new fabric.Group([text, polygon], {
       left: props.box.left,
       top: props.box.top,
-      width: props.box.width,
-      height: props.box.height,
       originX: props.mode,
-      originY: 'top',
+      originY: 'center',
       ...getLock(),
     });
 
-    group.add(rect);
+    group.add(polygon);
     group.add(text);
 
-    return new Port({ text, rect, group });
+    return new Port({ text, polygon: polygon, group });
   }
 
-  #rect: IPortProps['rect'];
+  #polygon: IPortProps['polygon'];
 
   #group: IPortProps['group'];
 
@@ -68,7 +90,7 @@ export class Port {
   }
 
   constructor(props: IPortProps) {
-    this.#rect = props.rect;
+    this.#polygon = props.polygon;
     this.#group = props.group;
     this.#text = props.text;
   }

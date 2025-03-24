@@ -1,3 +1,4 @@
+import { $jsoneditor as jsoneditor$ } from '#/fabric/bridges/jsoneditor-bridge';
 import { FabricBox } from '#/fabric/FabricBox';
 import { Node } from '#/fabric/objects/Node';
 import { Polyline } from '#/fabric/objects/Polyline';
@@ -11,7 +12,7 @@ export async function createCoord() {
   const nodes = [
     await Node.create({
       box: { left: 300, top: 300, width: 120, height: 80 },
-      label: 'x: left\ny: top',
+      label: 'x',
       color: '#8294C4',
       canvas: {
         stroke: Color('#332211').hex(),
@@ -20,7 +21,7 @@ export async function createCoord() {
     }),
     await Node.create({
       box: { left: 300, top: 300, width: 120, height: 80 },
-      label: 'x: center\ny: center',
+      label: 'x',
       color: '#8294C4',
       canvas: {
         originX: 'center',
@@ -270,10 +271,11 @@ export async function createCoord() {
         }),
       ],
       {
+        name: 'width-height-set-group',
         left: 900,
         top: 300,
-        width: 120,
-        height: 80,
+        width: 128,
+        height: 88,
         originX: 'left',
         originY: 'top',
         ...getLock(),
@@ -337,6 +339,9 @@ export async function createCoord() {
       {
         left: 1100,
         top: 300,
+        data: {
+          name: 'width-height-unset-group',
+        },
         originX: 'left',
         originY: 'top',
         ...getLock(),
@@ -385,5 +390,10 @@ export async function createCoord() {
       },
     ),
   );
+
   canvas.requestRenderAll();
+
+  setTimeout(() => {
+    jsoneditor$.next(canvas.toJSON());
+  }, 1000);
 }

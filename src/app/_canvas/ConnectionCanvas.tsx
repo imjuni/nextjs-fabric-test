@@ -16,12 +16,12 @@ const HomeJSONEditorDynamic = dynamic(() => import('../_json/JsonEditorBox'), {
   ssr: false,
 });
 
-export default function CoordCanvas() {
+export default function ConnectionCanvas() {
   return (
     <Suspense>
       <section className={cx('section-box', div())}>
         <div className={cx('canvas-box', div())}>
-          <HomeCanvasDynamic type="object-coord" />
+          <HomeCanvasDynamic type="object-connection" />
         </div>
         <div className={cx('option-box', styledOptionBox, div())}>
           <HomeJSONEditorDynamic />

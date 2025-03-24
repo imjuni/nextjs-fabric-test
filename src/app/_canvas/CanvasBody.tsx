@@ -1,26 +1,13 @@
 'use client';
 
 import { CE_FABRIC_CANVAS_CONFIG } from '#/const-enum/CE_FABRIC_CANVAS_CONFIG';
-import { createCoord } from '#/fabric/test-build/createCoord';
-import { createPerPixelFindTarget } from '#/fabric/test-build/createPerPixelFindTarget';
-import { getInitializor } from '#/fabric/tools/getInitializor';
+import { createObjectByType, TTestType } from '#/fabric/test-build/createObjectByType';
 import { css } from '#/styled-system/css';
 import { Suspense, useEffect, useRef } from 'react';
 
 const styledCanvas = css({
   border: '0.2rem solid rgba(33,33,33,0.2)',
 });
-
-type TTestType = 'per-pixel-find-target' | 'object-coord';
-
-function createObjectByType(type: TTestType) {
-  switch (type) {
-    case 'object-coord':
-      return getInitializor(createCoord);
-    default:
-      return getInitializor(createPerPixelFindTarget);
-  }
-}
 
 export default function CanvasBody({ type }: { type: TTestType }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);

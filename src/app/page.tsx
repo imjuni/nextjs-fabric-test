@@ -29,7 +29,10 @@ export default async function Home() {
                 <Link href="/per-pixel-find-target">perPixelFindTarget 테스트</Link>
               </li>
               <li>
-                <Link href="/object-coord">object coord 테스트</Link>
+                <Link href="/object-coord">stroke 설정에 따른 object 크기 변경 테스트</Link>
+              </li>
+              <li>
+                <Link href="/polyline-connection">object conection 테스트</Link>
               </li>
             </ul>
           </div>

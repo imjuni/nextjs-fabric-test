@@ -1,7 +1,9 @@
 import { ImageBox } from '#/fabric/images/ImageBox';
 import { IBox } from '#/fabric/interfaces/IBox';
+import { getHeightByRect } from '#/fabric/tools/getHeightByRect';
 import { getLock } from '#/fabric/tools/getLock';
 import { getNum } from '#/fabric/tools/getNum';
+import { getWidthByRect } from '#/fabric/tools/getWidthByRect';
 import Color from 'color';
 import { fabric } from 'fabric';
 import { IObjectOptions } from 'fabric/fabric-impl';
@@ -80,8 +82,8 @@ export class Node {
     const group = new fabric.Group([rect, image, text], {
       left: props.box.left,
       top: props.box.top,
-      width: props.box.width,
-      height: props.box.height,
+      width: getWidthByRect(rect),
+      height: getHeightByRect(rect),
       originX: props.canvas?.originX ?? 'left',
       originY: props.canvas?.originY ?? 'top',
       ...getLock(),
